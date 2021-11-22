@@ -16,9 +16,5 @@
     {!! Form::text('description', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
 </div>
 
-<!-- Userid Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('userid', 'Userid:') !!}
-    {!! Form::text('userid', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-</div>
+<input type="hidden" name="userid" value="{{Auth::id()}}">   
 

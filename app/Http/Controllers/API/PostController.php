@@ -22,17 +22,26 @@ use Response;
     {
         $token = $request['t']; //t = token
         $userid = $request['u'];// u-userid
-        // $user = User::where('id',$userid)->where('remember_token',$token)->first();
+        // $user = User::where('id', $userid)->where('remember_token',$token)->first();
 
-        // $post = Posts::all();
         $post = DB::table('posts')
-           ->LeftJoin('users', 'posts.id', '=', 'users.id')
-           ->select('posts.id', 'posts.title', 'posts.category', 'posts.description', 'users.name', 'posts.created_at', 'posts.updated_at', 'posts.id')
-           ->get();
-
+              ->LeftJoin('users', 'posts.userid', '=', 'users.id')
+              ->select('posts.id', 'posts.title', 'posts.category', 'posts.description', 'users.name', 'posts.created_at',
+                    'posts.updated_at')
+              ->get();
         return response()->json($post, $this->successStatus);
 
-       
+        // if ($user != null){
+        //     // $post = Posts::all();
+        //     $post = DB::table('posts')
+        //     ->LeftJoin('users', 'posts.userid', '=', 'users.id')
+        //     ->select('posts.id', 'posts.title', 'posts.category', 'posts.description', 'users.name', 'posts.created_at',
+        //                 'posts.updated_at')
+        //     ->get();
+        //     return response()->json($post, $this->successStatus);
+        // } else{
+        //     return response()->json(['response' => 'Bad Calls'], 501);
+        // }
     }
 
 
@@ -40,7 +49,7 @@ use Response;
 
         $id = $request['pid']; //old post id
         $token = $request['t']; //t = token
-        $userid = $request['u'];// u-userid
+        $userid = $request['u'];//u = userid
 
         $user = User::where('id',$userid)->where('remember_token',$token)->first();
 
